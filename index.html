@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+
+    <style>
+        #product{
+            width: 350px;
+            padding: 10px;
+            box-sizing: border-box;
+            box-shadow: 5px 5px 5px lightgray;
+            border-radius: 10px;
+            text-align: center;
+        }
+
+
+
+    </style>
+
+
+</head>
+<body>
+    <center>
+        <h1>Products Data</h1>
+
+        <div id="container">
+
+
+        </div>
+    </center>
+
+    <script>
+
+        let cont = document.getElementById('container')
+       async function dataapi(params) {
+            let products = await fetch(`http://localhost:555/api/productsdata`)
+            let product = await products.json()
+            console.log(product);
+
+            let render = product.map(i=>{
+                return `
+                
+            <div id="product">
+                <img src="${i.image}"" alt="not found">
+                <h2>${i.title}</h2>
+                <p>${i.description}</p>
+                <mark>${i.price}</mark>
+                <br>
+                <button>Add</button>
+            </div>
+                
+                `
+            })
+
+            cont.innerHTML = render.join('')
+
+            
+        }
+        dataapi()
+    </script>
+</body>
+</html>
+
+<!-- http://localhost:555/api/productsdata -->
